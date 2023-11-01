@@ -20,6 +20,8 @@ public class Player {
     @NotBlank(message = "pole nie może być puste")
     private String lastName;
 
+
+    private String team;
     private int points;
     private int assist;
     private int rebound;
@@ -27,10 +29,11 @@ public class Player {
     public Player() {
     }
 
-    public Player(Long id, String firstName, String lastName, int points, int assist, int rebound) {
+    public Player(Long id, String firstName, String lastName,String team, int points, int assist, int rebound) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.team = team;
         this.points = points;
         this.assist = assist;
         this.rebound = rebound;
@@ -82,6 +85,14 @@ public class Player {
 
     public void setRebound(int rebound) {
         this.rebound = rebound;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
     }
 
     @Override
