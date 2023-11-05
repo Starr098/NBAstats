@@ -1,41 +1,48 @@
 package pl.coderslab.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.Dao.PlayerDao;
+import pl.coderslab.Service.PlayerService;
+import pl.coderslab.Service.TeamService;
 import pl.coderslab.model.Player;
+import pl.coderslab.model.PlayerRequest;
+import pl.coderslab.model.Team;
 
-@Controller
+@RestController
+@RequestMapping("/players")
 public class PlayerController {
 
-    private PlayerDao playerDao;
+    private final PlayerService playerService;
 
-    @RequestMapping(value = "/addPlayer", method = RequestMethod.POST)
-    public String addPlayer(
-            @RequestParam("imie") String firstName,
-            @RequestParam("nazwisko") String lastName,
-            @RequestParam("team") String team,
-            @RequestParam("punkty") int points,
-            @RequestParam("asysty") int assist,
-            @RequestParam("zbiorki") int rebound,
-            Model model
-    ) {
-        Player player = new Player();
-        player.setFirstName(firstName);
-        player.setLastName(lastName);
-        player.setTeam(team);
-        player.setPoints(points);
-        player.setAssist(assist);
-        player.setRebound(rebound);
+    @Autowired
+    public PlayerController(PlayerService playerService) {
+        this.playerService = playerService;
+    }
 
-        playerDao.addPlayer(player);
+    @PostMapping("/add")
+    public ResponseEntity<String> addPlayer(@RequestBody PlayerRequest playerRequest) {
+        Player player = new Player(playerRequest.getFirstName(), playerRequest.getLastName());
 
-        model.addAttribute("wiadomosc", "Zawodnik został dodany do bazy danych.");
+        Player addedPlayer = playerService.addPlayer(player);
 
-        return "wynik";
+        if (addedPlayer != null) {
+            return ResponseEntity.ok("Gracz dodany.");
+        } else {
+            return ResponseEntity.badRequest().body("Błąd podczas dodawania gracza.");
+        }
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Player> getPlayer(@PathVariable Long id) {
+        Player player = playerService.getPlayerById(id);
+        if (player != null) {
+            return ResponseEntity.ok(player);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

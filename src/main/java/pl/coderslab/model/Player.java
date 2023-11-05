@@ -21,22 +21,13 @@ public class Player {
     private String lastName;
 
 
-    private String team;
-    private int points;
-    private int assist;
-    private int rebound;
-
     public Player() {
     }
 
-    public Player(Long id, String firstName, String lastName,String team, int points, int assist, int rebound) {
+    public Player(String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.team = team;
-        this.points = points;
-        this.assist = assist;
-        this.rebound = rebound;
     }
 
     public Long getId() {
@@ -63,38 +54,6 @@ public class Player {
         this.lastName = lastName;
     }
 
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public int getAssist() {
-        return assist;
-    }
-
-    public void setAssist(int assist) {
-        this.assist = assist;
-    }
-
-    public int getRebound() {
-        return rebound;
-    }
-
-    public void setRebound(int rebound) {
-        this.rebound = rebound;
-    }
-
-    public String getTeam() {
-        return team;
-    }
-
-    public void setTeam(String team) {
-        this.team = team;
-    }
-
     @Override
     public String toString() {
         return "Author{" +
@@ -104,7 +63,6 @@ public class Player {
                 '}';
     }
 
-    // Dzien 2 zad.dom.5 - dodatkowy getter do wyświetlania imienia i nazwiska łącznie w linii
     public String getFullName() {
         return firstName + " " + lastName;
     }
