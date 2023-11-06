@@ -20,14 +20,17 @@ public class Player {
     @NotBlank(message = "pole nie może być puste")
     private String lastName;
 
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 
     public Player() {
     }
 
-    public Player(String firstName, String lastName) {
-        this.id = id;
+    public Player(String firstName, String lastName, Team team) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.team = team;
     }
 
     public Long getId() {
@@ -52,6 +55,14 @@ public class Player {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     @Override

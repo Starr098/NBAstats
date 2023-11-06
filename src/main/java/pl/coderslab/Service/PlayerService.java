@@ -1,28 +1,49 @@
 package pl.coderslab.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.coderslab.model.Player;
 import pl.coderslab.repository.PlayerRepository;
 
+import java.util.List;
+
+
+@Service
 public class PlayerService {
 
-    private final PlayerRepository playerRepository;
+    private PlayerRepository playerRepository;
 
     @Autowired
     public PlayerService(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }
 
-    public Player createPlayer(String firstName, String lastName) {
-        Player player = new Player(firstName, lastName);
+    public List<Player> getAllPlayers() {
+        return playerRepository.findAll();
+    }
+
+    public Player getPlayerById(Long id) {
+        return playerRepository.findById(id).orElse(null);
+    }
+
+    public Player createPlayer(Player player) {
         return playerRepository.save(player);
     }
 
-    public Player getPlayerById(Long playerId) {
-        return playerRepository.findById(playerId).orElse(null);
-    }
-    public Player addPlayer(Player player) {
+    public Player updatePlayer(Long id, Player updatedPlayer) {
+        Player player = getPlayerById(id);
 
-        return playerRepository.save(player);
+        if (player != null) {
+            player.setFirstName(updatedPlayer.getFirstName());
+            player.setLastName(updatedPlayer.getLastName());
+            player.setTeam(updatedPlayer.getTeam());
+            return playerRepository.save(player);
+        }
+
+        return null; // Gracz o podanym ID nie istnieje
+    }
+
+    public void deletePlayer(Long id) {
+        playerRepository.deleteById(id);
     }
 }
