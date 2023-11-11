@@ -15,39 +15,40 @@ import pl.coderslab.model.Team;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/players")
 public class PlayerController {
 
     private PlayerService playerService;
+    private TeamService teamService;
 
     @Autowired
-    public PlayerController(PlayerService playerService) {
+    public PlayerController(PlayerService playerService, TeamService teamService) {
         this.playerService = playerService;
+        this.teamService = teamService;
+    }
+
+    @PostMapping("/add")
+    public String addPlayer(@ModelAttribute Player player) {
+        playerService.createPlayer(player);
+        return "redirect:/players";
     }
 
     @GetMapping
-    public List<Player> getAllPlayers() {
-        return playerService.getAllPlayers();
+    public String listPlayers(Model model) {
+        List<Player> players = playerService.getAllPlayers();
+        model.addAttribute("players", players);
+        return "playerList";
     }
 
-    @GetMapping("/{id}")
-    public Player getPlayerById(@PathVariable Long id) {
-        return playerService.getPlayerById(id);
+    @GetMapping("/add-form")
+    public String showAddPlayerForm(Model model) {
+        List<Team> teams = teamService.getAllTeams();
+        model.addAttribute("teams", teams);
+        model.addAttribute("player", new Player());
+        System.out.println("Teams: " + teams);
+        return "addPlayer";
     }
 
-    @PostMapping
-    public Player createPlayer(@RequestBody Player player) {
-        return playerService.createPlayer(player);
-    }
 
-    @PutMapping("/{id}")
-    public Player updatePlayer(@PathVariable Long id, @RequestBody Player updatedPlayer) {
-        return playerService.updatePlayer(id, updatedPlayer);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deletePlayer(@PathVariable Long id) {
-        playerService.deletePlayer(id);
-    }
 }

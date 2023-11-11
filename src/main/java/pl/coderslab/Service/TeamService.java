@@ -17,8 +17,9 @@ public class TeamService {
         this.teamRepository = teamRepository;
     }
 
-    public Team createTeam(String name) {
-        Team team = new Team(name);
+    public Team createTeam(String teamName) {
+        Team team = new Team();
+        team.setName(teamName);
         return teamRepository.save(team);
     }
 
