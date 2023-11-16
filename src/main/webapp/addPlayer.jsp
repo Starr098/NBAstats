@@ -7,7 +7,6 @@
 <body>
 <h2>Dodaj Zawodnika</h2>
 
-<%-- Wyświetl listę drużyn (debugging) --%>
 <c:forEach var="team" items="${teams}">
     <p>${team.name}</p>
 </c:forEach>

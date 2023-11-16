@@ -2,17 +2,13 @@ package pl.coderslab.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import pl.coderslab.Dao.PlayerDao;
 import pl.coderslab.Service.PlayerService;
 import pl.coderslab.Service.TeamService;
 import pl.coderslab.model.Player;
-import pl.coderslab.model.PlayerRequest;
 import pl.coderslab.model.Team;
-
 import java.util.List;
 
 @Controller
@@ -21,6 +17,7 @@ public class PlayerController {
 
     private PlayerService playerService;
     private TeamService teamService;
+
 
     @Autowired
     public PlayerController(PlayerService playerService, TeamService teamService) {

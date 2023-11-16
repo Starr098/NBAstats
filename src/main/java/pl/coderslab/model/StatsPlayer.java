@@ -1,9 +1,7 @@
 package pl.coderslab.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "StatsPlayer")
@@ -16,6 +14,10 @@ public class StatsPlayer {
     private int points;
     private int assist;
     private int rebound;
+
+    @OneToOne
+    @JoinColumn(name = "player_id")
+    private Player player;
 
     public StatsPlayer(){
     }

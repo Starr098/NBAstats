@@ -24,6 +24,9 @@ public class Player {
     @JoinColumn(name = "team_id")
     private Team team;
 
+    @OneToOne(mappedBy = "player")
+    private StatsPlayer statsPlayer;
+
     public Player() {
     }
 
