@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.Service.TeamService;
+import pl.coderslab.service.TeamService;
 import pl.coderslab.model.Team;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class TeamController {
     @GetMapping("/add-form")
     public String showAddTeamForm(Model model) {
         model.addAttribute("team", new Team());
-        return "addTeam"; // nazwa pliku JSP
+        return "addTeam";
     }
 
     @PostMapping("/add")
