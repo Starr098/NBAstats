@@ -1,18 +1,15 @@
 package pl.coderslab.model;
+
 import javax.persistence.*;
 import java.util.Date;
 
-
 @Entity
-@Table(name = "Game")
-public class Game {
+@Table(name = "match_results")
+public class MatchResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Temporal(TemporalType.DATE)
-    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "home_team_id")
@@ -22,20 +19,22 @@ public class Game {
     @JoinColumn(name = "away_team_id")
     private Team awayTeam;
 
+    @Temporal(TemporalType.DATE)
+    private Date matchDate;
+
     private int homeTeamScore;
     private int awayTeamScore;
 
-    public Game(Long id, Date date, Team homeTeam, Team awayTeam, int homeTeamScore, int awayTeamScore) {
-        this.id = id;
-        this.date = date;
-        this.homeTeam = homeTeam;
-        this.awayTeam = awayTeam;
-        this.homeTeamScore = homeTeamScore;
-        this.awayTeamScore = awayTeamScore;
+    public MatchResult() {
     }
 
-    public Game() {
-
+    public MatchResult(Long id, Team homeTeam, Team awayTeam, Date matchDate, int homeTeamScore, int awayTeamScore) {
+        this.id = id;
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.matchDate = matchDate;
+        this.homeTeamScore = homeTeamScore;
+        this.awayTeamScore = awayTeamScore;
     }
 
     public Long getId() {
@@ -44,14 +43,6 @@ public class Game {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public Team getHomeTeam() {
@@ -68,6 +59,14 @@ public class Game {
 
     public void setAwayTeam(Team awayTeam) {
         this.awayTeam = awayTeam;
+    }
+
+    public Date getMatchDate() {
+        return matchDate;
+    }
+
+    public void setMatchDate(Date matchDate) {
+        this.matchDate = matchDate;
     }
 
     public int getHomeTeamScore() {

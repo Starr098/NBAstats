@@ -1,6 +1,8 @@
 package pl.coderslab.model;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.MatchResult;
 
 
 @Entity
@@ -14,6 +16,7 @@ public class Team {
 
     @OneToMany(mappedBy = "team")
     private List<Player> players;
+
 
     public Team(Long id, String name, List<Player> players) {
         this.id = id;
