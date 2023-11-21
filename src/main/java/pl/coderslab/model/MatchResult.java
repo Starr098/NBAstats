@@ -1,5 +1,7 @@
 package pl.coderslab.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -20,6 +22,7 @@ public class MatchResult {
     private Team awayTeam;
 
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date matchDate;
 
     private int homeTeamScore;

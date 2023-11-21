@@ -8,7 +8,6 @@ import pl.coderslab.service.TeamService;
 import pl.coderslab.model.Team;
 
 import java.util.List;
-import java.util.regex.MatchResult;
 
 @Controller
 @RequestMapping("/teams")

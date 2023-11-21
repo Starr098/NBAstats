@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.model.MatchResult;
 import pl.coderslab.repository.MatchResultRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,8 +23,9 @@ public class MatchResultService {
         return matchResultRepository.findAll();
     }
 
-    public MatchResult saveMatchResult(MatchResult matchResult) {
-        return matchResultRepository.save(matchResult);
+    @Transactional
+    public void saveMatchResult(MatchResult matchResult) {
+        matchResultRepository.save(matchResult);
     }
 
 }

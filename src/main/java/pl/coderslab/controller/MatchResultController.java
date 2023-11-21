@@ -6,8 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.model.Team;
 import pl.coderslab.service.MatchResultService;
 import pl.coderslab.model.MatchResult;
+import pl.coderslab.service.TeamService;
+
 import java.util.List;
 
 @Controller
@@ -15,10 +18,12 @@ import java.util.List;
 public class MatchResultController {
 
     private final MatchResultService matchResultService;
+    private final TeamService teamService;
 
     @Autowired
-    public MatchResultController(MatchResultService matchResultService) {
+    public MatchResultController(MatchResultService matchResultService, TeamService teamService) {
         this.matchResultService = matchResultService;
+        this.teamService = teamService;
     }
 
     @GetMapping("/all")
@@ -30,8 +35,9 @@ public class MatchResultController {
 
     @GetMapping("/add-form")
     public String showAddMatchResultForm(Model model) {
+        List<Team> teams = teamService.getAllTeams(); // Pobierz listę drużyn z serwisu TeamService
+        model.addAttribute("teams", teams); // Przekazanie listy drużyn do widoku
         model.addAttribute("matchResult", new MatchResult());
-        // Pobierz i dodaj listy drużyn, daty itp. do modelu, jeśli potrzebne
         return "addMatchResult"; // Nazwa pliku HTML lub JSP
     }
 
