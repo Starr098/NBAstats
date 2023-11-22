@@ -9,6 +9,7 @@ public class StatsPlayer {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String team;
     private int points;

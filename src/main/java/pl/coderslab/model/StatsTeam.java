@@ -1,15 +1,14 @@
 package pl.coderslab.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "StatsTeam")
 public class StatsTeam {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private int wins;
@@ -17,16 +16,22 @@ public class StatsTeam {
     private int thrown;
     private int lost;
 
+    @OneToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
+
+
 
     public StatsTeam(){
     }
 
-    public StatsTeam(long id, int wins, int lose, int thrown, int lost) {
+    public StatsTeam(long id, int wins, int lose, int thrown, int lost, Team team) {
         this.id = id;
         this.wins = wins;
         this.lose = lose;
         this.thrown = thrown;
         this.lost = lost;
+        this.team = team;
     }
 
     public long getId() {
@@ -67,5 +72,13 @@ public class StatsTeam {
 
     public void setLost(int lost) {
         this.lost = lost;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }
