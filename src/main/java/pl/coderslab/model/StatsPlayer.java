@@ -11,7 +11,10 @@ public class StatsPlayer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String team;
+
+    @OneToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
     private int points;
     private int assist;
     private int rebound;
@@ -23,12 +26,13 @@ public class StatsPlayer {
     public StatsPlayer(){
     }
 
-    public StatsPlayer(int id, String team, int points, int assist, int rebound) {
+    public StatsPlayer(int id, Team team, int points, int assist, int rebound, Player player) {
         this.id = id;
         this.team = team;
         this.points = points;
         this.assist = assist;
         this.rebound = rebound;
+        this.player = player;
     }
 
     public int getId() {
@@ -39,11 +43,11 @@ public class StatsPlayer {
         this.id = id;
     }
 
-    public String getTeam() {
+    public Team getTeam() {
         return team;
     }
 
-    public void setTeam(String team) {
+    public void setTeam(Team team) {
         this.team = team;
     }
 
@@ -69,5 +73,13 @@ public class StatsPlayer {
 
     public void setRebound(int rebound) {
         this.rebound = rebound;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }
