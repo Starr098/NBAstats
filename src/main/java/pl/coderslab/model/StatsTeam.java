@@ -20,8 +20,6 @@ public class StatsTeam {
     @JoinColumn(name = "team_id")
     private Team team;
 
-
-
     public StatsTeam(){
     }
 
