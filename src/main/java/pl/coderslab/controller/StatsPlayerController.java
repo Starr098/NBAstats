@@ -46,6 +46,30 @@ public class StatsPlayerController {
         return "redirect:/stats-players/all";
     }
 
+    @GetMapping("/all")
+    public String showAllStatsPlayers(Model model) {
+        List<StatsPlayer> statsPlayers = statsPlayerService.getAllStatsPlayers();
+        model.addAttribute("statsPlayers", statsPlayers);
+        model.addAttribute("selectedPlayerStats", new StatsPlayer()); // Pusty obiekt na wybrane statystyki
+
+        return "statsPlayers";
+    }
+
+    @PostMapping("/select")
+    public String selectPlayerStats(@RequestParam("selectedPlayerId") Integer selectedPlayerId, Model model) {
+        if (selectedPlayerId != null) {
+            StatsPlayer selectedPlayerStats = statsPlayerService.getStatsPlayerById(selectedPlayerId);
+            model.addAttribute("selectedPlayerStats", selectedPlayerStats);
+        }
+
+        List<StatsPlayer> statsPlayers = statsPlayerService.getAllStatsPlayers();
+        model.addAttribute("statsPlayers", statsPlayers);
+
+        return "statsPlayers";
+    }
+
+
+
 
 }
 

@@ -21,7 +21,7 @@ public class StatsPlayerService {
         return statsPlayerRepository.findAll();
     }
 
-    public StatsPlayer getStatsPlayerById(int id) {
+    public StatsPlayer getStatsPlayerById(Integer id) {
         return statsPlayerRepository.findById(id).orElse(null);
     }
 
@@ -29,7 +29,11 @@ public class StatsPlayerService {
         return statsPlayerRepository.save(statsPlayer);
     }
 
-    public void deleteStatsPlayer(int id) {
+    public void deleteStatsPlayer(Integer id) {
         statsPlayerRepository.deleteById(id);
+    }
+
+    public List<StatsPlayer> getAllStatsForPlayer(Integer playerId) {
+        return statsPlayerRepository.findAllByPlayerId(playerId);
     }
 }

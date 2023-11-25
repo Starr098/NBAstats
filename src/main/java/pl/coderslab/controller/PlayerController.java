@@ -43,7 +43,6 @@ public class PlayerController {
         List<Team> teams = teamService.getAllTeams();
         model.addAttribute("teams", teams);
         model.addAttribute("player", new Player());
-        System.out.println("Teams: " + teams);
         return "addPlayer";
     }
 
