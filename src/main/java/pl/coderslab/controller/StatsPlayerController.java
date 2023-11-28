@@ -5,13 +5,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.Player;
+import pl.coderslab.model.PlayerStatsInfo;
 import pl.coderslab.model.StatsPlayer;
 import pl.coderslab.model.Team;
 import pl.coderslab.service.PlayerService;
 import pl.coderslab.service.StatsPlayerService;
 import pl.coderslab.service.TeamService;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/stats-players")
@@ -68,8 +73,11 @@ public class StatsPlayerController {
         return "statsPlayers";
     }
 
-
-
-
+    @GetMapping("/players/stats")
+    public String getAllPlayersStats(Model model) {
+        List<PlayerStatsInfo> playerStatsInfoList = statsPlayerService.calculateAverageStatsForAllPlayers();
+        model.addAttribute("playerStatsInfoList", playerStatsInfoList);
+        return "averageStats";
+    }
 }
 

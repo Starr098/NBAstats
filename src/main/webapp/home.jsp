@@ -64,6 +64,7 @@
       <li><a href="/match-results/all">Wszystkie rezultaty spotkań</a></li>
       <li><a href="/stats-players/all">Wszystkie statystyki zawodników</a></li>
       <li><a href="/stats-teams/all">Wszystkie statystyki drużyn</a></li>
+      <li><a href="/stats-players/players/stats">Średnie statystyki zawodnika</a></li>
     </ul>
   </div>
 

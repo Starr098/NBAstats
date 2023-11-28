@@ -15,7 +15,7 @@ public class StatsPlayer {
     private int assist;
     private int rebound;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "player_id")
     private Player player;
 

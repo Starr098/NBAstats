@@ -47,8 +47,25 @@ public class StatsTeamController {
 
     @PostMapping("/update")
     public String updateStatsTeam(@ModelAttribute("statsTeam") StatsTeam statsTeam, @RequestParam("team.id") Long teamId) {
-        statsTeam.setId(teamId); // Ustawienie identyfikatora drużyny w obiekcie StatsTeam
+        statsTeam.setId(teamId);
         statsTeamService.updateStatsTeam(statsTeam);
         return "redirect:/stats-teams/all";
     }
+
+    @GetMapping("/{teamId}")
+    public StatsTeam getStatsByTeamId(@PathVariable Long teamId) {
+        return statsTeamService.getStatsByTeamId(teamId);
+    }
+
+    @GetMapping("/most-wins/{limit}")
+    public List<StatsTeam> getTeamsWithMostWins(@PathVariable int limit) {
+        return statsTeamService.getTeamsWithMostWins(limit);
+    }
+
+    @GetMapping("/least-loses/{limit}")
+    public List<StatsTeam> getTeamsWithLeastLoses(@PathVariable int limit) {
+        return statsTeamService.getTeamsWithMostLose(limit);
+    }
+
 }
+

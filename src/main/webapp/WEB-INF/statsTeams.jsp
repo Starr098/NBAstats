@@ -42,8 +42,25 @@
         background-color: #f2f2f2;
     }
 </style>
-<table>
+<form action="${pageContext.request.contextPath}/stats-teams" method="get">
+    <label for="teamId">Wybierz drużynę:</label>
+    <select id="teamId" name="teamId">
+        <option value="">Wybierz drużynę</option>
+        <c:forEach var="statsTeam" items="${statsTeams}">
+            <option value="${statsTeam.team.id}">${statsTeam.team.name}</option>
+        </c:forEach>
+    </select>
 
+    <label for="sort">Sortuj według:</label>
+    <select id="sort" name="sort">
+        <option value="wins">Najwięcej wygranych</option>
+        <option value="lose">Najwięcej przegranych</option>
+    </select>
+
+    <input type="submit" value="Pokaż statystyki">
+</form>
+
+<table>
     <thead>
     <tr>
         <th>Nazwa drużyny</th>
@@ -65,5 +82,4 @@
     </c:forEach>
     </tbody>
 </table>
-
 

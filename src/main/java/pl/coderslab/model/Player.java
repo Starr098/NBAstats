@@ -4,6 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 
 @Entity
@@ -24,8 +25,8 @@ public class Player {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    @OneToOne(mappedBy = "player")
-    private StatsPlayer statsPlayer;
+    @OneToMany(mappedBy = "player")
+    private List<StatsPlayer>statsPlayers;
 
     public Player() {
     }
