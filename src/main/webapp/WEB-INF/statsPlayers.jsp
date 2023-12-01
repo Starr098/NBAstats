@@ -42,11 +42,39 @@
         tr:hover {
             background-color: #f2f2f2;
         }
+
+        .filter-form {
+            margin-bottom: 20px;
+        }
+
+        .filter-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .filter-form select {
+            padding: 5px;
+        }
     </style>
 </head>
 <body>
-<h1>Statystyki wszystkich zawodników</h1>
+<h1>Statystyki graczy</h1>
+
+<!-- Formularz do wyboru gracza -->
+<form action="${pageContext.request.contextPath}/stats-players" method="get">
+    <label for="playerId">Wybierz gracza:</label>
+    <select name="playerId" id="playerId">
+        <option value="">Wybierz gracza</option>
+        <c:forEach var="player" items="${allPlayers}">
+            <option value="${player.id}">${player.firstName} ${player.lastName}</option>
+        </c:forEach>
+    </select>
+    <input type="submit" value="Filtruj">
+</form>
+
+<!-- Tabela z wynikami -->
 <table border="1">
+    <thead>
     <tr>
         <th>ID</th>
         <th>Imię</th>
@@ -55,6 +83,8 @@
         <th>Asysty</th>
         <th>Zbiórki</th>
     </tr>
+    </thead>
+    <tbody>
     <c:forEach var="statsPlayer" items="${statsPlayers}">
         <tr>
             <td>${statsPlayer.id}</td>
@@ -65,6 +95,8 @@
             <td>${statsPlayer.rebound}</td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
+
 </body>
 </html>

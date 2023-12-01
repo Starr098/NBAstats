@@ -12,11 +12,8 @@ import pl.coderslab.service.PlayerService;
 import pl.coderslab.service.StatsPlayerService;
 import pl.coderslab.service.TeamService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
+
 
 @Controller
 @RequestMapping("/stats-players")
@@ -79,5 +76,31 @@ public class StatsPlayerController {
         model.addAttribute("playerStatsInfoList", playerStatsInfoList);
         return "averageStats";
     }
+
+    @GetMapping("/stats-players")
+    public String getPlayerStats(Model model) {
+        List<Player> allPlayers = playerService.getAllPlayers();
+        model.addAttribute("allPlayers", allPlayers);
+        return "statsPlayers";
+    }
+
+    @GetMapping
+    public String getPlayerStats(@RequestParam(name = "playerId", required = false) Long playerId, Model model) {
+        List<StatsPlayer> statsPlayers;
+        if (playerId != null) {
+            Player selectedPlayer = playerService.getPlayerById(playerId);
+            statsPlayers = statsPlayerService.getAllStatsForPlayer(playerId);
+            if (statsPlayers.isEmpty()) {
+                statsPlayers = Collections.emptyList();
+            }
+        } else {
+            statsPlayers = statsPlayerService.getAllStatsPlayers();
+        }
+        model.addAttribute("statsPlayers", statsPlayers);
+        List<Player> allPlayers = playerService.getAllPlayers();
+        model.addAttribute("allPlayers", allPlayers);
+        return "statsPlayers"; // Zwróć nazwę pliku JSP
+    }
+
 }
 

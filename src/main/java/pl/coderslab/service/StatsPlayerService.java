@@ -2,6 +2,7 @@ package pl.coderslab.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.coderslab.model.Player;
 import pl.coderslab.model.PlayerStatsInfo;
 import pl.coderslab.model.StatsPlayer;
 import pl.coderslab.repository.StatsPlayerRepository;
@@ -35,12 +36,8 @@ public class StatsPlayerService {
         statsPlayerRepository.deleteById(id);
     }
 
-    public List<StatsPlayer> getAllStatsForPlayer(Integer playerId) {
+    public List<StatsPlayer> getAllStatsForPlayer(Long playerId) {
         return statsPlayerRepository.findAllByPlayerId(playerId);
-    }
-
-    public List<StatsPlayer> getStatsByPlayerId(Long playerId) {
-        return statsPlayerRepository.findByPlayerId(playerId);
     }
 
     public List<PlayerStatsInfo> calculateAverageStatsForAllPlayers() {
@@ -60,7 +57,5 @@ public class StatsPlayerService {
 
         return playerStatsInfoList;
     }
-
-
 
 }
